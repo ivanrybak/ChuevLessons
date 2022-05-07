@@ -72,6 +72,134 @@ Constructor constructor=new Constructor();
         System.out.println("\nLesson9");
 constructor.foo();
 
+//lesson10  Модификаторы доступа  private default protected public
+    //применимы как к классам, так и к их состовляющим(полям,методам,конструкторам)
+
+        Modifiers modifiers=new Modifiers();
+        String name=modifiers.name;
+        modifiers.foo();
+        modifiers.foo1();
+    //при  обращении к вложенному классу private вклассе main выделяет крассным,т.е.не видит
+//        Firstclass
+
+
+//lesson11 Модификатор static
+        //Поля и методы отмеченные модификатором статик относятся к классу, а на к объекту.
+//Создали класс StaticVariablesAndMethods, задали ему static поле variable. Далее пробуем создать три объекта, полям котрых задать разные значения
+        System.out.println("\nLesson10");
+        StaticVariablesAndMethods a1=new StaticVariablesAndMethods();
+        StaticVariablesAndMethods a2=new StaticVariablesAndMethods();
+        StaticVariablesAndMethods a3=new StaticVariablesAndMethods();
+
+        a1.variable=4;
+        a2.variable=5;
+        a3.variable=6;
+
+        //если мы создадим 3 разных объекта и попытаемся задать разные значения полю variable,
+        //то при выводе в консоль, получим одно и тоже значение переменных всех объектов
+        //ввиду того,что модификатор доступа этого поля являкется статик
+        System.out.print(a1.variable );
+        System.out.print(a2.variable );
+        System.out.println(a3.variable );
+        //в консоли будет 6 6 6, так как компилятор присваеваетвсем объектам последнее (по очереди) значение переменной variable
+
+        //чтобы обратиться к данному полю (переменной), то нужно обращаться не к объекту а к классу (StaticVariablesAndMethods.variable)
+        StaticVariablesAndMethods.variable=3;
+
+
+ //lesson12 Инкапсуляция
+        Encapsulation encapsulation=new Encapsulation();         //создали объект, обратились к его методу,в консоли получили сумму а и б
+        System.out.println("\nLesson12");
+        encapsulation.setA(8);
+        encapsulation.setB(8);
+
+        System.out.println(encapsulation.showResault());
+        System.out.println(encapsulation.getA());
+
+
+
+        //чтобы можно было изменить значения переменных а и б, можно истользовать методы set(задать) и get(принять)
+        //для этого в классе Encapsulation нажимаем alt+ins, выбираем на веладке getter and setter, далее выбираем необходимые переменные
+
+     //   System.out.println(encapsulation.getA()); //здесь мы получаем, а далее выводим значение а в консоли
+
+
+
+//lesson13 Класс Enum (перечисление)
+ //класс енам позволяет хранить набор констант, как правило это константы объединенные каким-то смыслом(жанры музыки, дни недели,профессии,и т.д.)
+
+        Music mc = Music.CLASSIC; //для того чтобы создать объект, необходимо в классе мэйн написать Music имя=Music.CLASSIC; т.е. без слова new.
+        System.out.println("\nLesson13");
+        //у класса Music есть методы, такие как values(),который возвращает массив всех перечислений
+//создадим for rich,для этого создадим элементы
+        for (Music element : Music.values()) {
+            System.out.println(element);
+            /* в консоли нам выдаст:
+             CLASSIC
+            ROCK
+            POP  */
+        }
+//также существует ещё один статический метод valueOf, он тоже используется для создания объекта
+        Music mc2=Music.valueOf(Music.class,"ROCK"); //название должно совпадать с названием константы перечисления
+        System.out.println(mc2);
+
+        //метот самого объекта mc ordinal() Это метод возвращает позицию самого объекта, т.е. порядковый номер согласно перечислению:
+        // 0 1 2
+        System.out.println(mc2.ordinal()); //в нашем случае выдаст 1
+
+//использование switch case
+        switch (mc){
+            case CLASSIC:
+                System.out.println("Classic");
+                break;
+            case POP:
+                System.out.println("Pop");
+                break;
+            case ROCK:
+                System.out.println("Rock");
+                break;
+            // в консоли выдаст Classic
+
+        }
+        //работа с полями объекта
+        mc.getI();
+        mc.getName();
+      System.out.println(mc.getI()+mc.getName());  //выдаст 0null, так как в скобках ничего нет: mc.getI();  mc.getName();
+
+
+//обратимся к созданному в классе Music методу foo
+
+        mc.foo();
+
+
+//lesson14 Наследование-это отношение между классами, при котором характеристики одного класса передаются другому классу
+// без необходимости их повторного определения
+
+        //создали два объекта(птицы), у которых есть класс родитель Birds (с полями имя и крылья). при этом у каждого объекта можно
+        //вызвать свой метод, а можно вызвать метод класса Birds.
+
+        Ostrich ostrich=new Ostrich();
+        Crow crow=new Crow();
+
+        ostrich.setName("ostrich");                       //у страуса доступен метод .walk и .hideHead, а также при наличии геттеров и сеттеров в классе Bird
+        // доступны соответствующие поля. для примера задаем поле ИМЯ
+
+
+        //можно создать страуса другим способом помимо Ostrich ostrich=new Ostrich(); :
+        Bird ostrich2=new Bird();
+        //этому страусу будут доступны методы класса птица, но методы класса Ostrich (например hideHead) недоступны
+
+// необходимо знать, что все классы в java являются наследниками класса object,
+//т.е. например при наборе crow. подсказка выдаст все доступные методы (класса object)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -80,7 +208,8 @@ constructor.foo();
 
 
     }
-}
+            }
+
 
 
 // lesson1 class
@@ -312,7 +441,6 @@ class Flower {
 }
 class Constructor {
 
-
     public void foo() {
         Flower flower = new Flower();    //создали цветок с помощью конструктора "по-умолчанию"
         flower.name = "Ромашка";         //задали цветку название
@@ -324,3 +452,184 @@ class Constructor {
         System.out.println(flower3.name + " " + flower3.color);
     }
 }
+//lesson10 class
+//модификаторы доступа
+
+ class Modifiers {    // модификаторы доступа: private default protected public
+    //применимы как к классам, так и к их состовляющим(полям,методам,конструкторам)
+
+    // модификатор public
+    public String name;             //т.е. создав здесь поле, конструктор,метод - они становятся доступны в любои другом классе, например  Main
+    public Modifiers(){};
+    public void foo(){};
+
+
+    //модификатор private
+    //данный модификатор не применим к обычному классу, но применим к вложенному классу
+    //при  обращении к вложенному классу private в классе main выделяет крассным,т.е.не видит
+    //
+    private class Firstclass{
+        public String color;
+    }
+    // но мы имеем доступ Firstclass, вне вложенного класса, допустим создадим в общем классе метод foo1
+
+    public void foo1(){
+        Firstclass firstclass=new Firstclass();
+        firstclass.color="Black";
+        System.out.println(firstclass.color);
+    }
+//тоже самое и с полями: private String name; , конструкторами: private Modifiers(){};  ,  методами: private void foo(){}; - становятся недоступны в других классах
+
+    // модификатор default
+    //он не пишется, т.е.является модификатором по-умолчанию. этот класс и значения его объекта доступны только в этом пакете package
+    // и мы не сможем создать объект в другом пакете
+    class Modifiers1 {
+        String name1;
+        Modifiers1() {}
+        void foo2() {}
+
+    }
+
+    //модификатор protected
+    //он применим только вложенным или внутренним классам
+    protected class Secondclass{}
+    // если у нас есть класс наследник, и в нем есть методы поля конструкторы protected,
+    // то эти свойства объекта будут доступны и в других пакетах
+
+}
+
+//lesson11 class
+class StaticVariablesAndMethods {
+    //модификатор доступа статик. он применим к классам,полям,методам,логическим блокам
+
+    //статик поля. создадим переменную типа инт
+    public static int variable;  //поля,как и методы с модификатором статик относятся к классу, а не к объекту
+    //т.е.если мы создадим какие либо объекты нашего класса в классе мэйн, то у них у всех будет общее поле variable
+    //и чтобы обратиться к данному полю, то нужно обращаться не к объекту а к классу (StaticVariablesAndMethods.variable)
+
+    //статик методы. создадим переменную, затем создадим метод статик. и попробуем данную переменную в этом методе вывести
+    public int variable1;
+
+    public static void foo() {
+        //  System.out.println(variable1.foo);  компилятор не дает этого сделать, так как
+        //  в статическом методе мы не можем использовать поля(variable1), относящиеся к объекту
+        // но мы можем бращаться к статическим полям(variable), так как они являются переменными класса, а не объекта
+    }
+    //еще в статических методах нельзя работать с обычными методами.
+
+    public void show() {
+        System.out.println("Something");
+    }
+  /*  public static void foo1() {
+        show();                //не дает обратиться к методу шоу
+    }*/
+
+    // Но в нестатическом методе, мы можем использовать(обращаться) к статическому методу
+    public void went() {
+        foo();
+    }
+
+    //статические блоки. пишутся {}, и используются для инициализации полей. в них так же могут находиться и методы
+    static {
+        variable=foo1();
+    }
+    public static int foo1(){
+        return 1;
+    }
+}
+
+//lesson12 class
+
+    class Encapsulation {
+    //Инкапсуляция это принцип объединяющий данные и код, манипулирующий этими данными,а так же
+    //защищающий данные от прямого доступа и неправильного использования
+    private int a,b;         //создали 2 приватные переменные (можно присвоить им значения)
+    public int showResault(){    //создали меод который будет показывать результат суммы a+b
+        return a+b;
+    }
+    //чтобы можно было изменить значения переменных а и б непосредственно в классе мэйн, можно истользовать методы set(задать) и get(принять)
+    //для этого в классе Encapsulation нажимаем alt+ins, выбираем на веладке getter and setter, далее выбираем необходимые переменные
+
+    //при этом автоматически создаются методы, позволяющие менять значения переменных в классе мэйн, обратившись к этим методам
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+}
+
+//lesson13 class
+
+   enum Music {
+    //класс енам позволяет хранить набор констант, как правило это константы объединенные каким-то смыслом(жанры музыки, дни недели,профессии,и т.д.)
+    CLASSIC,ROCK,POP; //запишем несколько констант(пишутся с большой буквы),ВСЕ ОНИ ЯВЛЯЮТСЯ ОТДЕЛЬНЫМИ ОБЪЕКТАМИ.
+    //для того чтобы создать объект, необходимо в классе мэйн написать Music имя=Music.CLASSIC; т.е. без слова new.
+
+    //данный класс обладает некоторыми особенностями. создадим переменые
+    private int i;
+    private String name;
+    // если создать конструктор alt+ins, то тогда необходимо инициализировать их у объекта, т.е. вместо CLASSIC,ROCK,POP; прописывать:
+/*
+    CLASSIC(5,"classic"),ROCK(3,"rock"),POP(7,"pop");
+
+    Music(int i, String name) {
+        this.i = i;
+        this.name = name;
+        */
+//чтобы работать непосредственно с полями объекта в классе мэйн, необходимо использовать геттеры и сеттеры
+    public int getI() {
+        return i;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    //класс enum может так же иметь и обычные методы, например создадим метод foo
+    public void foo(){
+        System.out.println("It's true!");
+        //так же мы можем работать непосредственно с перечисленными объектами. Например
+        System.out.println(Music.CLASSIC.getI());  //показать какой порядковый номет объекта. У нас CLASSIC под номером 0
+
+    }
+}
+
+
+//lesson14  classes
+
+//создаем класс птица, в котором задаем общие поля,характерные для всех птиц. имя и крылья
+
+class Wings {   //создали класс крылья, для создания  крыльев (полей) у в классе птицы
+}
+ class Ostrich extends Bird { //класс страус приобрел все поля и методы класса птица(ключевое слово extends)
+
+    //так же добавим к данному классу страус собственные методы (прятать голову)
+    public void hideHead() {
+        System.out.println("I ostrich and I scared!");
+    }
+
+    // при создании конструктора в классе птица(возможность сразу назначать значение полей), в классе-наследнике
+    //тоже необходимо создаватьть конструктор
+    // при создании конструктора будет ключевое слово super Пример
+  /*   public Ostrich (String name, Wings wings){
+     super (name,wings)
+}*/
+}
+ class Crow extends Bird{
+    public void fly(){
+        System.out.println("I crow and I fly!");
+    }
+
+}
+
