@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 public class Main {
     public static void main(String[] args) {
 // lesson1 Введение в классы и объекты
@@ -177,6 +179,7 @@ constructor.foo();
 
         //создали два объекта(птицы), у которых есть класс родитель Birds (с полями имя и крылья). при этом у каждого объекта можно
         //вызвать свой метод, а можно вызвать метод класса Birds.
+        System.out.println("\nLesson14");
 
         Ostrich ostrich=new Ostrich();
         Crow crow=new Crow();
@@ -194,442 +197,328 @@ constructor.foo();
 
 
 
+//lesson15 Полиморфизм. Перегрузка и переопределение методов
+        //статический полиморфизм это когда есть метод в родительском классе, и такой же метод в классе потомке(но с другим параметром)
+        // в нашем случае создан метод рычать(growl) в классе животные, и такой же метод в классах волк и медведь, но при этом,
+        //при вызове этого метода будут выполняться разные действия, в соответствии к какому классу он относится.
 
+        System.out.println("\nLesson15");
+        Animal bear=new Bear(); //создали объект медведь через родительский класс животное
+        bear.growl();           //вызвали метод рычать. он будет относится к классу животное
 
+        Animal wolf=new Wolf(); //создали объект волк через родительский класс животное
+        wolf.growl();            //вызвали метод рычать. он будет относится к классу животное
 
+        Bear bear1=new Bear();    //создали второго медведя через класс наследник Bear
+        bear1.growl("Rrr");    //вызвали метод рычать(при нажатии bear1. -предлагает либо метод growl(), либо  growl(str))
+// growl(str) будет относится к классу Bear. заодно добавили строку "Rrr"
 
 
+        Wolf wolf1=new Wolf();      //создали второго волка через класс наследник Wolf
+        wolf1.growl("rrr");       //вызвали метод рычать(при нажатии wolf1. -предлагает либо метод growl(), либо  growl(str)).
+// growl(str) будет относится к классу Wolf. заодно добавили строку "rrr"
 
 
+        //динамический полиморфизм-это когда происходит переопределение метода.т.е. если и у класса родителя и у класса наследника
+        //метод с одним и темже названием. идем в класс медведь. нажимеам alt+ins, выбиваем Override methods,далее метод growl
+        // затем убираем строчку со словом super(т.к.это для родительского класса). и пишем свою реализацию( например I hungry)
+//тоже самое делаем в классе волк
+        Beast beast=new Beast();
+        beast.foo(wolf);
 
 
 
+//lesson16 Абстрактные классы и методы. абстрактный класс-это класс,который содержит общий набор свойств и поведений, присущих одной группе
+       //Создали абстрактный класс поезд, далее создали класс наследник электропоезд.
+        //объект класса поезд не может быть создан, а объект класса наследника может
+        //если мы создаем в абстрактном классе абстрактный метод, то в наслкднике этот метод необходимо сразу переопределить
 
 
-
-    }
-            }
-
-
-
-// lesson1 class
- class Bus {                //создали класс автобус с полями,создали в классе мэйн объект и вызвали метод,которые показывает цвет
-    public String model;
-    public String color;
-
-    public Bus() {
-    }
-
-    public void showColor() {
-        System.out.println("Lesson1\n"+this.color);
-    }
-}
-
-//lesson2 class
- class References {
-    String str = "Моя строка";                    //объявили переменные str и str2 типа стринг (двумя способами).  по факту str и str2-это ссылки на объект
-    String str2 = new String("Моя строка");
-
-
-     public void foo() {
-         new String("Моя строка");   //данная строка является самим объектом
-    }
-}
-
-//lesson3 class
- class Operation {           //создали переменные разных типов, присвоили им значения
-    Integer a = 5;
-    Integer b = 7;
-    Integer c;
-    String str1 = "Hot";
-    String str2 = " Java";
-    String result;
-
-
-    public void foo() {        //метод, который выполняет различные операции с переменными
-        this.c = this.b % this.a;
-        boolean v = this.a <= this.b;
-        this.result = this.str1 + this.str2;
-        System.out.println("\nLesson3");
-        System.out.println(this.c);
-        System.out.println(this.result);
-        System.out.println(v);
-    }
-}
-
-//lesson4 class
- class ControlOperators {     //создали класс, создали переменные, присвоили им значения
-    int a = 5;
-    int b = 7;
-    boolean value = false;
-
-       public void foo() {
-        System.out.println("\nLesson4");
-        if (this.value) {                    //используем оператор сравнения переменных
-            System.out.println("True");
-            if (this.a < this.b) {
-                System.out.println("Yes");
-            }
-        } else if (this.b> this.a) {
-            System.out.println("False");
-        } else {
-            System.out.println("AAA");
-        }
-
-    }
-}
-
-//lesson5 class
-class OperatorSwitch {
-    final int VALUE = 4;          //чтобы работать с переменными в switch/case, значения этих переменных должны быть константами
-    final int FIRSTVALUE = 1;      //для этого пишется слово final, а сама переменная записывается большими буквами
-    final int SECONDVALUE = 2;
-    final int THIRDVALUE = 3;
-
-    public void foo() {
-        switch (2) {            //если число находящееся в switch, совпадает с числом, находяшимся в case
-            case 1:
-                System.out.println(1);
-                break;
-            case 2:
-                System.out.println(2);      //выполняется блок действий после case2: (2 3 default)
-                break;                    //break останавливает дальнейшее выполнение действий.Поэтому его надо ставить после выполнения каждого кейса
-            case 3:
-                System.out.println(3);
-                break;
-            default:
-                System.out.println("default");
-        }
-
-    }
-
-
-
-    public void foo1() {
-        switch (VALUE) {
-            case VALUE:
-                System.out.println("VALUE");
-                break;
-            case FIRSTVALUE:
-                System.out.println(FIRSTVALUE);
-                break;
-            case SECONDVALUE:
-                System.out.println("SECONDVALUE");
-                break;
-            case THIRDVALUE:
-                System.out.println("THIRDVALUE");
-                break;
-            default:
-                System.out.println("default");
-        }
-    }
-}
-
-//lesson6 class
-   class LoopControl {        //циклы while do
-   // boolean value = true;
-    int a = 5;
-    int b = 7;
-
-    public void foo() {
-        do {                   //делать действие
-            ++this.a;           //прибавляется единица к а
-            System.out.println(this.a);
-        } while(this.a < this.b);     //пока а меньше б
-
-    }
-}
-//lesson7 class
-class ForLoop {    //цикл for эдентичен циклу while/do, но как-правило цикл for используется, когда известно точное число повторений
-
-    public void make() {
-        for (int i = 0; i < 8; i = i + 2) {     //i=0-объявление и инициализация переменной (счетчик), i<0-условие, далее выполняется тело метода, и только потом к i прибавляется число 2
-            System.out.println(i);   // только потом в следующем цикле переменная увеличивается на 2
-            //в консоль выдаст 0 2 4 6
-        }
-    }
-
-
-    int[] array = new int[]{1, 2, 3, 6, -10};  //создали массив, присвоили его переменнным значения
-
-
-    public void foo() {
-        for (int i = 0; i < array.length; i++) {  //массив начинается с нулевого элемента, поэтому i=0, условие пока i<длинны массива, выводим тело. в следующем цикле  i=i+1
-            System.out.println(array[i]);
-        }
-        //ниже пример упрощенной записи этого цикла
-        //создали метод, в котором переменная элемент будет поочередно принимать все значения, находящиеся в данном массиве
-        for (int element : array) {
-            System.out.println(element); //выводим все элементы. в консоль выдаст 1 2 3 6 -10 (в столбик)
-        }
-    }
-
-}
-
-/*    public void foo1() {
-        int[] var1 = this.array;
-        int var2 = var1.length;
-
-        for(int var3 = 0; var3 < var2; ++var3) {
-            int element = var1[var3];
-            System.out.println(element);
-
-            for(int i = 0; i < this.array.length; ++i) {
-                System.out.println(this.array[i]);
-            }
-        }
-
-    }
-}*/
-
-//lesson8 classes  2 класса один MyArrays, второй Конфеты
-
-     class Candy {
-    }
-
-
-    class MyArrays {                //массив можно создать двумя способами: с помощью слова new, с помощью прямой инициализации
-        int[] array = new int[3];     // тип данных[] имя массива=new тип данных [кол-во объектов в массиве]
-        Candy[] box = new Candy[5];    //массив коробка с (объектами) конфетами в кол-ве 5 штук
-        int[] array2 = new int[]{10, 3, 7};  //прямая инициализация. массив array2 с тремя числами{10,3,7} (индексы чисел 0 1 2)
-
-        //чтобы создать массив box2 с конфетами с помощью прямой инициализации, необходимо сначала создать объекты(конфеты)
-        Candy candyFirst = new Candy();
-        Candy candySecond = new Candy();
-        Candy candyThird = new Candy();
-        Candy[] box2={ candyFirst,candySecond,candyThird}; //создание  с помощью прямой инициализации
-        Candy[] box3;   //просто создали массив box3 без инициализации
-
-
-
-        public void foo() {
-            Candy candy = new Candy();   //создали конфету
-            box[0] = candy;               //положили конфету в коробку, под индексом 0
-            System.out.println(box[0]);    //вывели конфету под индексом 0 в консоль
-            System.out.println(box2[2]);   //вывели в консоль элемент под индексом 2(т.е. третий с нуля 0 1 2) из коробки box2
-            //в консоль выдаст ссылку на объекты: Candy@5d624da6
-            //Candy@1e67b872
-
-
-            for (int i = 0; i < array2.length; ++i) { //цикл for используем для вывода в консоль всех элементов массива array2
-                System.out.println(array2[i]);
-            }
-
-        }
-
-        //многомерных массивов в Java не существует.Но существуют массивы массивов
-        public void show() {
-            int[][] arrayAr = new int[2][2];   //создание массива с размерностью 2 на 2
-            int[][] arrayAr1 = {{1, 2}, {3, 4}};  //данный массив представляет собой следующий вид    1 2   индексы 00 01
-            //                                                                                        3 4           10 11
-            System.out.println(arrayAr1[0] [1]); //выводим первый элемент нулевого массива. Выдаст: 2
-        }
-
-    }
-//lesson9 classes
-
-//создаем класс цветок, задаем ему поля: название и цвет
-class Flower {
-    String name;
-    String color;
-    public Flower(){}   //создали конструктор "по-умолчанию"
-
-    public Flower(String myName, String myColor) {    //создание конструктора, который принимает в себя параметры(две строки) имя, цвет
-        this.name = myName;     //поле находящееся в нашем классе String name; принимает конструктор String myName
-        this.color = myColor;   //поле класса String color; принимает конструктор String myColor
-    }
-}
-class Constructor {
-
-    public void foo() {
-        Flower flower = new Flower();    //создали цветок с помощью конструктора "по-умолчанию"
-        flower.name = "Ромашка";         //задали цветку название
-        flower.color = "Белая";           //задали цветку цвет
-        Flower flower2 = new Flower("Роза", "красная");      //создали flower2 и сразу передали в конструктор имя и цвет
-        Flower flower3 = new Flower("Тюльпан", "Желтый");    //создали flower3 и сразу передали в конструктор имя и цвет
-        System.out.println(flower.name + " " + flower.color);               //выводим в консоль значения объектов (имя и цвет)
-        System.out.println(flower2.name + " " + flower2.color);
-        System.out.println(flower3.name + " " + flower3.color);
-    }
-}
-//lesson10 class
-//модификаторы доступа
-
- class Modifiers {    // модификаторы доступа: private default protected public
-    //применимы как к классам, так и к их состовляющим(полям,методам,конструкторам)
-
-    // модификатор public
-    public String name;             //т.е. создав здесь поле, конструктор,метод - они становятся доступны в любои другом классе, например  Main
-    public Modifiers(){};
-    public void foo(){};
-
-
-    //модификатор private
-    //данный модификатор не применим к обычному классу, но применим к вложенному классу
-    //при  обращении к вложенному классу private в классе main выделяет крассным,т.е.не видит
-    //
-    private class Firstclass{
-        public String color;
-    }
-    // но мы имеем доступ Firstclass, вне вложенного класса, допустим создадим в общем классе метод foo1
-
-    public void foo1(){
-        Firstclass firstclass=new Firstclass();
-        firstclass.color="Black";
-        System.out.println(firstclass.color);
-    }
-//тоже самое и с полями: private String name; , конструкторами: private Modifiers(){};  ,  методами: private void foo(){}; - становятся недоступны в других классах
-
-    // модификатор default
-    //он не пишется, т.е.является модификатором по-умолчанию. этот класс и значения его объекта доступны только в этом пакете package
-    // и мы не сможем создать объект в другом пакете
-    class Modifiers1 {
-        String name1;
-        Modifiers1() {}
-        void foo2() {}
-
-    }
-
-    //модификатор protected
-    //он применим только вложенным или внутренним классам
-    protected class Secondclass{}
-    // если у нас есть класс наследник, и в нем есть методы поля конструкторы protected,
-    // то эти свойства объекта будут доступны и в других пакетах
-
-}
-
-//lesson11 class
-class StaticVariablesAndMethods {
-    //модификатор доступа статик. он применим к классам,полям,методам,логическим блокам
-
-    //статик поля. создадим переменную типа инт
-    public static int variable;  //поля,как и методы с модификатором статик относятся к классу, а не к объекту
-    //т.е.если мы создадим какие либо объекты нашего класса в классе мэйн, то у них у всех будет общее поле variable
-    //и чтобы обратиться к данному полю, то нужно обращаться не к объекту а к классу (StaticVariablesAndMethods.variable)
-
-    //статик методы. создадим переменную, затем создадим метод статик. и попробуем данную переменную в этом методе вывести
-    public int variable1;
-
-    public static void foo() {
-        //  System.out.println(variable1.foo);  компилятор не дает этого сделать, так как
-        //  в статическом методе мы не можем использовать поля(variable1), относящиеся к объекту
-        // но мы можем бращаться к статическим полям(variable), так как они являются переменными класса, а не объекта
-    }
-    //еще в статических методах нельзя работать с обычными методами.
-
-    public void show() {
-        System.out.println("Something");
-    }
-  /*  public static void foo1() {
-        show();                //не дает обратиться к методу шоу
-    }*/
-
-    // Но в нестатическом методе, мы можем использовать(обращаться) к статическому методу
-    public void went() {
-        foo();
-    }
-
-    //статические блоки. пишутся {}, и используются для инициализации полей. в них так же могут находиться и методы
-    static {
-        variable=foo1();
-    }
-    public static int foo1(){
-        return 1;
-    }
-}
-
-//lesson12 class
-
-    class Encapsulation {
-    //Инкапсуляция это принцип объединяющий данные и код, манипулирующий этими данными,а так же
-    //защищающий данные от прямого доступа и неправильного использования
-    private int a,b;         //создали 2 приватные переменные (можно присвоить им значения)
-    public int showResault(){    //создали меод который будет показывать результат суммы a+b
-        return a+b;
-    }
-    //чтобы можно было изменить значения переменных а и б непосредственно в классе мэйн, можно истользовать методы set(задать) и get(принять)
-    //для этого в классе Encapsulation нажимаем alt+ins, выбираем на веладке getter and setter, далее выбираем необходимые переменные
-
-    //при этом автоматически создаются методы, позволяющие менять значения переменных в классе мэйн, обратившись к этим методам
-
-    public int getA() {
-        return a;
-    }
-
-    public void setA(int a) {
-        this.a = a;
-    }
-
-    public int getB() {
-        return b;
-    }
-
-    public void setB(int b) {
-        this.b = b;
-    }
-}
-
-//lesson13 class
-
-   enum Music {
-    //класс енам позволяет хранить набор констант, как правило это константы объединенные каким-то смыслом(жанры музыки, дни недели,профессии,и т.д.)
-    CLASSIC,ROCK,POP; //запишем несколько констант(пишутся с большой буквы),ВСЕ ОНИ ЯВЛЯЮТСЯ ОТДЕЛЬНЫМИ ОБЪЕКТАМИ.
-    //для того чтобы создать объект, необходимо в классе мэйн написать Music имя=Music.CLASSIC; т.е. без слова new.
-
-    //данный класс обладает некоторыми особенностями. создадим переменые
-    private int i;
-    private String name;
-    // если создать конструктор alt+ins, то тогда необходимо инициализировать их у объекта, т.е. вместо CLASSIC,ROCK,POP; прописывать:
 /*
-    CLASSIC(5,"classic"),ROCK(3,"rock"),POP(7,"pop");
-
-    Music(int i, String name) {
-        this.i = i;
-        this.name = name;
-        */
-//чтобы работать непосредственно с полями объекта в классе мэйн, необходимо использовать геттеры и сеттеры
-    public int getI() {
-        return i;
+Train train=new Train() {
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
+};
+*/
 
-    public String getName() {
-        return name;
-    }
+        System.out.println("\nLesson16");
 
-    //класс enum может так же иметь и обычные методы, например создадим метод foo
-    public void foo(){
-        System.out.println("It's true!");
-        //так же мы можем работать непосредственно с перечисленными объектами. Например
-        System.out.println(Music.CLASSIC.getI());  //показать какой порядковый номет объекта. У нас CLASSIC под номером 0
+//но мы можем создать объект класса, являющегося наследником класса трейн
+                ElectricTrain electricTrain = new ElectricTrain();
+                Train electricTrain1 = new ElectricTrain(); //при такой записи функцианал будет ограничен возможностями абстрактного класса трейн
+//нам будут недоступны методы класса ElectricTrain, если только они не переопределены
+                electricTrain.drive();
+
+
+
+//lesson17 Интерфейсы. Интерфейс создается как обычный класс, только вместо поля Class, выбирается interface
+        //невозможно создать объект класса интерфейс, так же как и у абстрактного класса.
+        //Можно создать метод(функцию интерфейса),а затем пользоваться этой функцией(переопределив её) в любом классе,
+        //для этого в названии класса пишется implements. Причем, если мы реализуем в классе несколько интерфейсов, то они пишутся через
+        //запятую: public class Mi8 extends Helicopter implements TakeOff,Landing{}
+
+        //пример: создан абстрактный класс воздушный объект; далее его наследники абстрактные вертолет и самолет;
+        //далее потомки соответственно ми8 и миг29
+
+        System.out.println("\nLesson17");
+
+        Mig29 mig29=new Mig29();   //создали объекты самолет, вертолет, нло
+        Mi8 mi8=new Mi8();
+        Ufo ufo=new Ufo();
+
+        mi8.VerticalLanding();  //реализовали методы(VerticalLanding,VerticalTakeOff) интерфейсов(TakeOff и Landing) для объектов mi8 и ufo
+        ufo.VerticalTakeOff();
+
+
+
+//lesson18 класс String и его методы
+        System.out.println("\nLesson18");
+
+        // в пакете javalang есть нестолько классов для работы со строками: String, StringBuilder, StringBuffer
+        // данные классы являются final, т.е. от них невозможно наследоваться
+        //рассмотрим класс String. объекты которого можно создать двумя способами:
+        String str1=new String("Hot Java"); //при нахождении курсора в скобках и нажатии ctrl+P, мы увидим все доступные конструкторы
+        // мы запишем литерал, в ковычках
+        String str2="Java"; //это второй способ, создали объект и присвоили ему название
+
+        //РАССМОТРИМ МЕТОДЫ ОБЪЕКТА КЛАССА STRING:
+
+        //Метод charAt()
+        str1.charAt(0);
+        System.out.println("charAt method: "+str1.charAt(0));
+//данный метод принимает индекс и возвращает символ. т.е. в скобках у нас 0, а под индексом 0 в строке "Hot Java" символ H
+
+
+        //Метод codePointAt()
+        str1.codePointAt(2);
+        System.out.println("codePointAt method: " +str1.codePointAt(2));
+//данный метод возвращает int и принимает int. Возвращает символ в кодировке Unicode. под индексом 2 в нашей строке "Hot Java"
+// буква t . В юникоде соответствует числу 116
+
+        //метод compareTo()
+        str1.compareTo(str2);
+        System.out.println("compareTo method: "+str1.compareTo(str2));
+//данный метод сравнивает одну строку с другой. Если строки одинаковые (в том числе большие и малые буквы), то выдаст число 0, если разные, то другое число.
+        //в нашем случае сравниваем строку "Hot Java" с "Java" выдаст -2
+
+
+        //метод compareToIgnoreCase()
+        str1.compareToIgnoreCase(str2);
+        System.out.println( "compareToIgnoreCase metod: "+str1.compareToIgnoreCase(str2));
+//данный метод аналогичен предыдущему, за исключением того , при сравнении двух строк не учитывает большая или маленькая буква
+//соответственно выдаст тоже -2
+
+        //метод concat()
+        str1.concat(str2);
+        System.out.println("contact method: "+ str1.concat(str2));
+        //данный метод прибавляет строку str1 к строке  str2. получим: Hot JavaJava
+        // что соответствует записи str1+str2
+
+
+        //метод equals()
+        str1.equals(str2);
+        System.out.println( "equals method: "+str1.equals(str2) );
+        //данный метод принимает другой объект, возвращает тип boolean. сравнивает строки str1 и str2, если они одинаковые
+        //то получаем true,если разные, то False. (При этом заглавные и строчные буквы считаются разные). у нас выдаст:False
+
+
+        //метод equalsIgnoreCase()
+        str1.equalsIgnoreCase(str2);
+        System.out.println("equalsIgnoreCase method: "+str1.equalsIgnoreCase(str2)) ;
+        //этот метод аналогичен предыдущиму, только при сравнении строк не берёт в счет заглавная или строчная буква
+        //выдаст так же false
+
+
+        //метод hashCode()
+        str1.hashCode();
+        System.out.println("hashCode method: "+ str1.hashCode());
+//данный метод возвращает хэш-код объекта, в нашем случае объект-строка. в консоли получим хешкод строки Hot Java
+// -285178283
+
+
+        //метод indexOf()
+        str1.indexOf(97);
+        System.out.println("indexOf method: "+ str1.indexOf(97));
+        //данный метод возвращает int и принимает ch. Эта переменная в кодировке юникод.Т.е. если данный символ совпадает
+        // с символом в строке, то возвращается индекс данного символа в строке. Если в строке отсутствует символ,
+        // совпадающий с юникодом, то получим : -1
+        // Например в скобках пишем число(97). в юникоде числу 97 соответствует буква a, а в нашей строчке она под индексом 5
+        // Hot Java
+        // 01234567
+
+
+        //метод isEmpty
+        str1.isEmpty();
+        System.out.println("isEmpty method: "+str1.isEmpty() );
+//данный метод возвращает true, если длина строки равна нулю - "" . Если нет, то false
+// в нашем случае строка не равно нулю. выдаст false
+
+
+        //метод length()
+        str1.length();
+        System.out.println("length metod: "+str1.length() );
+        //данный метод возвращает число символов в нашей строке. Hot_Java -у нас их 8 (считаются вместе с пробелами)
+        //выдаст: 8
+
+        //метод split()
+//создаем массив strings,который будет принимать значение str1, и реализовать метод split
+        String[]strings=str1.split("J");
+        for (String element: strings){     //воспользуемся оператором for для проверки результата
+            System.out.println("split method: "+ element);}
+        //данный метод принимает какой-то разделитель, и возвращает массив стрингоф
+        //в скобках приписали букву (J), значит наша строка разделится на:"до буквы J" и "после буквы J"
+        //получим два массива. Первый:Hot_ ,второй:  ava
+
+
+        //метод substring()
+        str1.substring(2,8);
+        System.out.println("substring metod: "+str1.substring(2,8) );
+        //данный метод извлекает из нашей строчки подстрочку, длиной конечный индекс минус начальный
+        //в нашем случае получаем подстрочку от индекса 2 до индекса 8: t_Java
+
+
+        //метод toCharArray()
+        str1.toCharArray();
+        char[]charArray=str1.toCharArray();
+        System.out.println("toCharArray metod: ");
+        for (char elements:charArray) {
+            System.out.println(elements);
+        }
+// данный метот разбирает строку на символы. Т.е. строку Hot Java разбираем посимвольно и заносим эти символы в массив
+//затем каждый элемент char выводим в консоли. получим
+/* H
+   o
+   t
+
+   J
+   a
+   v
+   a    */
+
+
+        //метод toLowerCase()
+        str1.toLowerCase();
+        System.out.println("toLowerCase method: "+str1.toLowerCase() );
+        //данный метод приводит нашу строку к строчным буквам. Получим: hot java
+
+        //метод toUpperCase()
+        str1.toUpperCase();
+        System.out.println("toUpperCase method: "+ str1.toUpperCase() );
+        //данный метод приводит нашу строку к заглавным  буквам. Получим: HOT JAVA
+
+        //метод trim
+        str1.trim();
+        System.out.println("trim method: "+str1.trim() );
+        //данный метод обрезает пробелы в начале и конце строки. в нашем случае их нет. выдаст Hot Java
+
+
+        //МЕТОДЫ СТАТИЧЕСКОГО КЛАССА
+
+        //метод valueOf()
+        String.valueOf(65);
+        System.out.println(" valueOf method: "+String.valueOf(65));
+        //данный метод преобразует число в строку. т.е. в консоли выдаст 65 -уже тип строка
+//что равнозначно записи String str1="65";
+
+        //метод copyValueOf
+        // String.copyValueOf();
+
+        char[]array= {'H', 'o', 't',' ', 'J','a','v','a'};   //сохдали массив типа char, присвоили ему значения символов
+        System.out.println("copyValueOf method: "+ String.copyValueOf(array));
+//данный метод преобразует массив в строку. Получили  Hot Java
+
+
+
+//lesson18 классы StringBuilder и StringBuffer
+
+//с помощью методов и конструкторов, объекты данных классов можно преобразовать друг в друга
+        //*Отличие стрингбилдера от стрингбафера, в том что билдер работает быстрее,но он менее потокобезопасен, чем бафер
+
+//доступные конструкторы объекта класса StringBuilder( ctrl+P ) :  capacity (объём символов в буфере),  String str(создание строки),  charsequence seq (последовательность символов)
+
+        //приведение объекта к строке:
+        StringBuilder stringBuilder=new StringBuilder("Java"); // с помощью конструктора
+        //              stringBuilder.toString("Java");                      // с помощью метода
+
+
+        //задать объём доступного количества сиволов в буфере
+
+        StringBuilder stringBuilder1=new StringBuilder(10);    //с помощью конструктора
+        stringBuilder1.ensureCapacity(16);           //с помощью метода ensureCapacity()
+        stringBuilder1.setLength(20);                                 //с помощью метода setLength()
+        System.out.println(stringBuilder1.capacity());
+
+        // append()  метод присвоения(прибавления) объекту какого-либо строкового значения:
+        stringBuilder.append(" Hot");   //было   Java, а получили Java Hot. При этом в дальнейшем объект stringBuilder становится Java Hot
+
+
+        //сложить две строки мы можем с использованием метода concat класса String ,например
+        String str=new String("JAVA");
+        str.concat("HOT");
+        System.out.println(str.concat(" HOT"));  //  получим JAVA HOT
+        System.out.println(str);                 //  объект str так и остаётся JAVA
+
+
+
+        //insert() метод вставки символа в указанную позицию
+        stringBuilder.insert(3,"S"); //после 3 символа поставили букву "S"
+        System.out.println(stringBuilder);     //   Получили: "JavSa Hot"
+
+
+        //delete() метод удаления символа(/символов) из строки
+        stringBuilder.delete(1,6);  //либо один порядковый символ, либо удалить частьстроки (как у нас) с 1 по 6 символ
+        System.out.println(stringBuilder);  //получим вместо JavSa Hot - JHot
+
+
+        //reverse() метод перемены строки наоборот (в обратную сторону)
+        stringBuilder.reverse();
+        System.out.println(stringBuilder);    //получим из JHot- toHJ
+
+
+
+//lesson19 Параметризация. Пример: необходимо создать 3 машины, у которых есть кузов и есть колеса. Но кузов будет один
+        //а колеса у всех разные (Для разного покрытия)
+        System.out.println("\nLesson19");
+
+        Body body=new Body();                                //создали объект кузов
+        WinterWheels winterWheels=new WinterWheels();        //создали объекты: зимние,летние,грязевые колеса
+        SummerWheels summerWheels=new SummerWheels();
+        DirtWheels dirtWheels=new DirtWheels();
+
+        Car<WinterWheels>car=new Car<>(body,winterWheels);        //создали три машины, у которых в <> задаем необходимый параметр(тип) WinterWheels
+        Car<SummerWheels>car1=new Car<>(body,summerWheels);       // этот тип передается в класс колеса, далее указываем поля в конструкторе
+        Car<DirtWheels>car2=new Car<>(body,dirtWheels);          //с учетом заданного типа колес (body,winterWheels)
+
+        car.getWheels().DrivingOnSnow();                 //задаем машинам геттеры колес, далее реализуем метод для каждого типа колес
+        car1.getWheels().DrivingOnAsphalt();
+        car2.getWheels().DrivingOnOffroad();
+
+
+
+ //lesson20 Ошибки, исключения. Блоки Try/catch
+        test test=new test();    //создали объект класса тест, вызвали его метод.А в методе прописано вывести 1/0
+        //  test.foo();               // тогда в консоли выдаст ошибку by zero( данная ошибка относится к классу RunTimeException,
+        //а значит ответственность за обработку ошибок данного класса лежит на программисте
+
+
+        //   test.foo1();
+
+
+
+     /*   try {              //вызвав метод test.foo2(); компилятор подсвечивает ошибку, так как в самом методе мы исключали ошибки
+            test.foo2();         //с помощью выноса в сигнатуру метода, то и при вызове метода .foo2(), необходима обработка блоком try/catch
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
+
+
+
 
     }
 }
 
 
-//lesson14  classes
 
-//создаем класс птица, в котором задаем общие поля,характерные для всех птиц. имя и крылья
-
-class Wings {   //создали класс крылья, для создания  крыльев (полей) у в классе птицы
-}
- class Ostrich extends Bird { //класс страус приобрел все поля и методы класса птица(ключевое слово extends)
-
-    //так же добавим к данному классу страус собственные методы (прятать голову)
-    public void hideHead() {
-        System.out.println("I ostrich and I scared!");
-    }
-
-    // при создании конструктора в классе птица(возможность сразу назначать значение полей), в классе-наследнике
-    //тоже необходимо создаватьть конструктор
-    // при создании конструктора будет ключевое слово super Пример
-  /*   public Ostrich (String name, Wings wings){
-     super (name,wings)
-}*/
-}
- class Crow extends Bird{
-    public void fly(){
-        System.out.println("I crow and I fly!");
-    }
-
-}
 
